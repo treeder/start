@@ -15,6 +15,7 @@ Trollop::die :name, "required" unless opts[:name]
 # p opts
 
 # Setup git config
+puts "Configuring git"
 puts `git config --global user.email "#{opts[:email]}"`
 puts `git config --global user.name "#{opts[:name]}"`
 
