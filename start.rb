@@ -18,6 +18,8 @@ Trollop::die :name, "required" unless opts[:name]
 puts "Configuring git"
 puts `git config --global user.email "#{opts[:email]}"`
 puts `git config --global user.name "#{opts[:name]}"`
+# Next line only required until git 2.0 comes out
+puts `git config --global push.default simple`
 
 # Setup .netrc for GitHub
 rest = Rest::Client.new
@@ -28,4 +30,4 @@ resp = rest.post("https://api.github.com/authorizations",
 body = JSON.parse(resp.body)
 ghtoken = body["token"]
 puts "Writing token to .netrc file"
-File.open(".netrc", 'w') {|f| f.write("machine github.com login #{ghtoken}\n") }
+File.open("../.netrc", 'w') {|f| f.write("machine github.com login #{ghtoken}\n") }
